@@ -1,0 +1,29 @@
+<div class="header">
+  <mat-toolbar color="primary" class="mat-elevation-z4">
+    <span>iRacing Dashboard</span>
+    <span class="spacer"></span>
+    <span>Display Data</span>
+  </mat-toolbar>
+  <mat-tab-group>
+    <mat-tab label="Your Recent Races">
+      <ag-grid-angular
+        [theme]="theme"
+        style="width: 100%; height: 1100px"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [pagination]="false"
+      >
+      </ag-grid-angular>
+    </mat-tab>
+    <mat-tab label="Formula Leaderboard">
+      <app-formula-leaderboard></app-formula-leaderboard>
+    </mat-tab>
+    <mat-tab label="Sports Car Leaderboard">
+      <app-sports-car-leaderboard></app-sports-car-leaderboard>
+    </mat-tab>
+    <mat-tab label="Driver Lookup">
+      <app-driver-stats-lookup></app-driver-stats-lookup>
+    </mat-tab>
+  </mat-tab-group>
+</div>

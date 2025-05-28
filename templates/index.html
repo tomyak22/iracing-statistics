@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iRacing Tracker</title>
+</head>
+<body>
+    <h1>Welcome to the iRacing Tracker</h1>
+    {% if session.get('auth_cookie') %}
+        <p>You are logged in. Click here to view your data:</p>
+        <a href="/display_data">View My Data</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <p>Please log in to track your iRacing data:</p>
+        <a href="/login">Login</a>
+    {% endif %}
+</body>
+</html>

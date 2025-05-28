@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>iRacing Data</title>
+    <style>
+        .graph-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .graph-container img {
+            max-width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>iRacing Data for Customer ID: {{ cust_id }}</h1>
+    <a href="/logout">Logout</a>
+
+    <h2>Historical Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Series</th>
+                <th>Car</th>
+                <th>Track</th>
+                <th>Starting iRating</th>
+                <th>Ending iRating</th>
+                <th>Starting SR</th>
+                <th>Ending SR</th>
+                <th>Incidents</th>
+                <th>Finish Position</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in historical_data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+                <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
+                <td>{{ row[9] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Summary Statistics</h2>
+    <p>Number of Races: {{ summary_stats['num_races'] }}</p>
+    <p>Minimum iRating: {{ summary_stats['min_irating'] }}</p>
+    <p>Maximum iRating: {{ summary_stats['max_irating'] }}</p>
+    <p>Average iRating Change: {{ summary_stats['avg_irating_change'] }}</p>
+    <p>Minimum Safety Rating: {{ summary_stats['min_sr'] }}</p>
+    <p>Maximum Safety Rating: {{ summary_stats['max_sr'] }}</p>
+    <p>Average Safety Rating Change: {{ summary_stats['avg_sr_change'] }}</p>
+    <p>Total Incidents: {{ summary_stats['total_incidents'] }}</p>
+
+    <div class="graph-container">
+        <h2>iRating Over Time</h2>
+        {% if irating_graph %}
+        <img src="data:image/png;base64,{{ irating_graph }}" alt="iRating Graph">
+        {% else %}
+        <p>No iRating graph available.</p>
+        {% endif %}
+    </div>
+
+    <div class="graph-container">
+        <h2>Safety Rating Over Time</h2>
+        {% if sr_graph %}
+        <img src="data:image/png;base64,{{ sr_graph }}" alt="Safety Rating Graph">
+        {% else %}
+        <p>No Safety Rating graph available.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

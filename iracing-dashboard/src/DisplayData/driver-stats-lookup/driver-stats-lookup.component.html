@@ -1,0 +1,41 @@
+<div class="center-search" *ngIf="!currentDriver">
+  <mat-form-field style="width: 50%;">
+    <input type="text"
+           matInput
+           placeholder="Driver Lookup by ID or Name"
+           [formControl]="searchControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDriverSelected($event.option.value)">
+      <mat-option *ngFor="let driver of filteredDrivers$ | async" [value]="driver">
+        {{ driver.display_name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+
+<!-- Show search in top-left above grid if a driver is selected -->
+<div *ngIf="currentDriver">
+  <div class="search-top-left">
+    <mat-form-field>
+      <input type="text"
+             matInput
+             placeholder="Driver Lookup by ID or Name"
+             [formControl]="searchControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDriverSelected($event.option.value)">
+        <mat-option *ngFor="let driver of filteredDrivers$ | async" [value]="driver">
+          {{ driver.display_name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <ag-grid-angular
+    [theme]="theme"
+    style="width: 100%; height: 1000px"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="false"
+  >
+  </ag-grid-angular>
+</div>
