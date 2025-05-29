@@ -51,6 +51,7 @@ export class DisplayDataComponent {
   columnDefs: any[] = recentRacesColumnDefs;
   rowData: any[] = [];
   defaultColDef = { sortable: true, filter: true, resizable: true };
+  customerId: number | null = null;
 
   baseThemes = [
     { id: "themeQuartz", value: themeQuartz },
@@ -105,6 +106,7 @@ export class DisplayDataComponent {
         this.rowData = Array.isArray(data) ? data : ((data as any)?.body?.races || []);
         // Do NOT set columnDefs here for now
         console.log(this.rowData);
+        this.customerId = cust_id; // Store the customer ID for later use
       });
     } else {
       console.warn('cust_id is null, cannot fetch recent races.');
