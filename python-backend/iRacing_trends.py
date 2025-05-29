@@ -134,6 +134,41 @@ def get_recent_races():
         logging.error("Error decoding JSON response.")
         return None
     
+@app.route('/api/memberCareer', methods=['GET', 'POST', 'OPTIONS'])
+def get_member_career():
+    if request.method == 'OPTIONS':
+        return '', 200
+    cust_id = request.args.get('cust_id')
+    logging.info(f'Cust ID is: {cust_id}')
+    url = urljoin(IRACING_API_BASE_URL, f"stats/member_career?cust_id={cust_id}")
+    auth_cookie = session.get('auth_cookie')
+    session_id = request.args.get('session_id') #Gets session_id from request
+    if session_id:
+        breakpoint()
+        url += f"&subsession_id={session_id}"
+    headers = {
+        "Content-Type": "application/json",
+        "Cookie": f"authtoken_members={auth_cookie}"
+    }
+    logging.debug(f"Fetching member career from: {url}")
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+        newUrl = data["link"]
+        responseSecond = requests.get(newUrl, headers=headers)
+        responseSecond.raise_for_status()
+        data = responseSecond.json()
+        logging.debug(f"Member Career: {data}")
+        return data
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error fetching member career: {e}")
+        return None
+    except json.JSONDecodeError:
+        logging.error("Error decoding JSON response.")
+        return None
+    
 @app.route('/api/memberSearch', methods=['GET', 'POST', 'OPTIONS'])
 def member_lookup():
     if request.method == 'OPTIONS':

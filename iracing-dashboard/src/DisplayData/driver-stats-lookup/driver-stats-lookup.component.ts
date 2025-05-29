@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map, startWith } from 'rxjs/operators';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +30,7 @@ import {
   themeQuartz,
 } from "ag-grid-community";
 import { recentRacesColumnDefs } from '../display-data/recentRacesColumns';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-driver-stats-lookup',
@@ -42,7 +43,8 @@ import { recentRacesColumnDefs } from '../display-data/recentRacesColumns';
     MatAutocompleteModule,
     HttpClientModule,
     AgGridModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatChipsModule,
     // ...other modules
   ],
   styleUrl: './driver-stats-lookup.component.scss'
@@ -55,6 +57,7 @@ export class DriverStatsLookupComponent {
     columnDefs: any[] = recentRacesColumnDefs;
     rowData: any[] = [];
     defaultColDef = { sortable: true, filter: true, resizable: true };
+    memberCareer: any[] = [];
   
     baseThemes = [
       { id: "themeQuartz", value: themeQuartz },
@@ -121,15 +124,28 @@ export class DriverStatsLookupComponent {
     this.currentDriver = driver;
     this.searchControl.setValue(driver.display_name, { emitEvent: false });
     console.log('Selected Driver:', this.currentDriver.cust_id);
+
     if (this.currentDriver !== null) {
-      this.iracingService.getRecentRaces(this.currentDriver.cust_id).subscribe((data: any) => {
-        console.log(data);
-        this.rowData = Array.isArray(data) ? data : ((data as any)?.body?.races || []);
-        // Do NOT set columnDefs here for now
-        console.log(this.rowData);
+      forkJoin({
+        recentRaces: this.iracingService.getRecentRaces(this.currentDriver.cust_id),
+        memberCareer: this.iracingService.getMemberCareer(this.currentDriver.cust_id)
+      }).subscribe(({ recentRaces, memberCareer }) => {
+        // Handle recent races
+        this.rowData = Array.isArray(recentRaces)
+          ? recentRaces
+          : ((recentRaces as any)?.body?.races || []);
+        // Handle member career (store in a property if needed)
+        this.memberCareer = (memberCareer.body as { stats: any[] })?.stats;
+        console.log('Recent Races:', this.rowData);
+        console.log('Member Career:', this.memberCareer);
       });
     } else {
-      console.warn('cust_id is null, cannot fetch recent races.');
+      console.warn('cust_id is null, cannot fetch recent races or career.');
     }
+  }
+
+  getCareerStat(categoryId: number, statName: string): any {
+    const statObj = this.memberCareer?.find(c => String(c.category_id) === String(categoryId));
+    return statObj && statObj[statName] !== undefined ? statObj[statName] : '-';
   }
 }

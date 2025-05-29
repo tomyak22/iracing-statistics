@@ -31,11 +31,199 @@
   </div>
   <ag-grid-angular
     [theme]="theme"
-    style="width: 100%; height: 1000px"
+    style="width: 100%; height: 475px"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
     [pagination]="false"
   >
   </ag-grid-angular>
+  <div class="card-row">
+    <mat-card class="stat-card">
+      <div class="card-title">Formula Career</div>
+      <div class="chip-grid">
+        <!-- First row: starts, wins, poles -->
+        <div class="chip-cell">
+          <div class="chip-title">Starts</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'starts') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Wins</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'wins') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Poles</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'poles') }}
+          </div>
+        </div>
+        <!-- Second row: top5, avg_start_position, avg_finish_position -->
+        <div class="chip-cell">
+          <div class="chip-title">Top 5</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'top5') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Start</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'avg_start_position') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Finish</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'avg_finish_position') }}
+          </div>
+        </div>
+        <!-- Third row: laps, avg_incidents, top5_percentage -->
+        <div class="chip-cell">
+          <div class="chip-title">Laps</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'laps') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Incidents</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'avg_incidents') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Top 5 %</div>
+          <div class="chip-body">
+            {{ getCareerStat(6, 'top5_percentage') }}
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <div class="card-title">Sports Car Career</div>
+      <div class="chip-grid">
+        <!-- First row: starts, wins, poles -->
+        <div class="chip-cell">
+          <div class="chip-title">Starts</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'starts') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Wins</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'wins') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Poles</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'poles') }}
+          </div>
+        </div>
+        <!-- Second row: top5, avg_start_position, avg_finish_position -->
+        <div class="chip-cell">
+          <div class="chip-title">Top 5</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'top5') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Start</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'avg_start_position') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Finish</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'avg_finish_position') }}
+          </div>
+        </div>
+        <!-- Third row: laps, avg_incidents, top5_percentage -->
+        <div class="chip-cell">
+          <div class="chip-title">Laps</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'laps') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Incidents</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'avg_incidents') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Top 5 %</div>
+          <div class="chip-body">
+            {{ getCareerStat(5, 'top5_percentage') }}
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <div class="card-title">Road (Retired) Career</div>
+      <div class="chip-grid">
+        <!-- First row: starts, wins, poles -->
+        <div class="chip-cell">
+          <div class="chip-title">Starts</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'starts') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Wins</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'wins') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Poles</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'poles') }}
+          </div>
+        </div>
+        <!-- Second row: top5, avg_start_position, avg_finish_position -->
+        <div class="chip-cell">
+          <div class="chip-title">Top 5</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'top5') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Start</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'avg_start_position') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Finish</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'avg_finish_position') }}
+          </div>
+        </div>
+        <!-- Third row: laps, avg_incidents, top5_percentage -->
+        <div class="chip-cell">
+          <div class="chip-title">Laps</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'laps') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Avg Incidents</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'avg_incidents') }}
+          </div>
+        </div>
+        <div class="chip-cell">
+          <div class="chip-title">Top 5 %</div>
+          <div class="chip-body">
+            {{ getCareerStat(2, 'top5_percentage') }}
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>

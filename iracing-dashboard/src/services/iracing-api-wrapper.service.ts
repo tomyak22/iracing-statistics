@@ -27,6 +27,19 @@ export class IracingApiWrapperService {
         );
     }
 
+      getMemberCareer(cust_id: number) {
+        const url = `${this.pythonApiBaseUrl}/api/memberCareer?cust_id=${cust_id}`;
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          //  Include the auth_cookie.  You'll need to get this after login and store it.
+          //  For this example, I'm assuming you have a method to retrieve it.
+        });
+
+        return this.http.get(url, { headers, observe: 'response' , withCredentials: true  }).pipe(
+          catchError(this.handleError)
+        );
+    }
+
       getFomulaLeaderboard() {
         const url = `${this.pythonApiBaseUrl}/api/formulaLeaderboard`;
         const headers = new HttpHeaders({
